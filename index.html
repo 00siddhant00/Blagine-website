@@ -140,6 +140,66 @@
       color: #00C853;
       transform: scale(1.1);
     }
+
+    /* Styles for larger screens */
+    @media screen and (min-width: 600px) {
+      /* Increase the font size and adjust margins for larger screens */
+      h1 {
+        font-size: 64px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+
+      h3 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      ul {
+        font-size: 24px;
+        margin-left: 40px;
+      }
+
+      /* Increase the size of the app icon for larger screens */
+      .app-icon {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    /* Styles for vertical alignment on Android devices */
+    @media screen and (max-width: 600px) and (orientation: portrait) {
+      /* Increase the font size and adjust margins for vertical alignment */
+      h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        font-size: 16px;
+        margin-left: 20px;
+      }
+
+      /* Increase the size of the app icon for vertical alignment */
+      .app-icon {
+        width: 250px;
+        height: 250px;
+      }
+    }
   </style>
 </head>
 <body>
