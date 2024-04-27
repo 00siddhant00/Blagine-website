@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ColorGo - Hypercasual Game</title>
+  <style>
+    /* Reset default browser styles */
+    body, h1, h2, h3, p, ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set background color and font styles */
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #232323;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Content section styles */
+    section {
+      padding: 20px;
+      background-color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-left: 20px;
+      font-size: 18px;
+      text-align: left;
+      list-style-position: inside;
+    }
+
+    /* Footer styles */
+    footer {
+      background-color: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 20px 40px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 24px;
+      border-radius: 10px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .button:hover {
+      background-color: #45A049;
+      transform: scale(1.05);
+    }
+    
+    /* Icon styles */
+    .app-icon {
+      border-radius: 25%;
+      transition: transform 0.3s;
+    }
+    
+    .app-icon:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Flexbox styles */
+    .flex-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex-item {
+      margin: 0 20px;
+    }
+    
+    /* Contact options styles */
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    
+    .contact-icons a {
+      display: inline-block;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+    
+    .contact-icons a img {
+      width: 32px;
+      height: 32px;
+    }
+    
+    /* Custom icon colors */
+    .contact-icons a.instagram {
+      color: #E1306C;
+    }
+    
+    .contact-icons a.github {
+      color: #24292E;
+    }
+    
+    .contact-icons a.twitter {
+      color: #1DA1F2;
+    }
+    
+    .contact-icons a.email {
+      color: #D44638;
+    }
+    
+    .contact-icons a:hover {
+      color: #00C853;
+      transform: scale(1.1);
+    }
+
+    /* Styles for larger screens */
+    @media screen and (min-width: 600px) {
+      /* Increase the font size and adjust margins for larger screens */
+      h1 {
+        font-size: 64px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+
+      h3 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      ul {
+        font-size: 24px;
+        margin-left: 40px;
+      }
+
+      /* Increase the size of the app icon for larger screens */
+      .app-icon {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    /* Styles for vertical alignment on Android devices */
+    @media screen and (max-width: 600px) and (orientation: portrait) {
+      /* Increase the font size and adjust margins for vertical alignment */
+      h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        font-size: 16px;
+        margin-left: 20px;
+      }
+
+      /* Increase the size of the app icon for vertical alignment */
+      .app-icon {
+        width: 250px;
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Color Go</h1>
+    <h2>Hypercasual Game</h2>
+  </header>
+  
+  <section id="data">
+    <div class="flex-container">
+      <div class="flex-item">
+        <img src="Icons/GameIcon.webp" alt="App Icon" class="app-icon" width="200" height="200">
+      </div>
+      <div class="flex-item">
+        <a href="https://play.google.com/store/apps/details?id=com.SiddCode.ColorGo" class="button">Download on Play Store</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="flex-container">
+    <div class="flex-item">
+      <h3>About the Game</h3>
+      <p>Perfectly time your taps through same-colored obstacles</p>
+      <p>Color Go is a mobile game that is highly interactive and engaging at the same time. Simple but addictive gameplay will keep you entertained. You have to compete with players all over the world to be the first.</p>
+    </div>
+  </section>
+  
+  <section id="how-to-play" class="flex-container">
+    <div class="flex-item">
+      <h3>How to Play</h3>
+      <ul>
+        <li>Tap, Tap, Tap to get the ball past every obstacle in the way.</li>
+        <li>Follow the color pattern to cross each obstacle.</li>
+        <li>Timing and Patience are the keys to victory.</li>
+        <li>Earn diamonds to unlock new balls.</li>
+        <li>The higher you go, the more diamonds you get.</li>
+        <li>Infinity Gameplay</li>
+      </ul>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="contact-icons">
+      <a href="https://www.instagram.com/00_siddhant_00/" target="_blank" class="instagram"><img src="Icons/instagram.svg" alt="Instagram"></a>
+      <a href="https://github.com/00siddhant00" target="_blank" class="github"><img src="Icons/github.svg" alt="GitHub"></a>
+      <a href="https://twitter.com/pandav_siddhant" target="_blank" class="twitter"><img src="Icons/twitter.svg" alt="Twitter"></a>
+      <a href="mailto:blagine.studios@gmail.com" class="email"><img src="Icons/email.svg" alt="Email"></a>
+    </div>
+  </footer>
+  
+</body>
+</html>

@@ -1,4 +1,4 @@
-# ColorGo-Website
-A website specifically for promotion of my color go game on playstore
+# Blagine
+Persnoal portfolio website to showcase my interest in Game-Developement, Arts (2d & 3d) and Music
 
-- https://00siddhant00.github.io/ColorGo-Website/
+- blagine.com

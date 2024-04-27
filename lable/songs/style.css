@@ -1,0 +1,191 @@
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent black background */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cccccc; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners */
+}
+
+
+body {
+    font-family: sans-serif;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -3;
+    margin: 0px;
+    padding: 0px;
+  }
+
+
+.background img{ 
+    content: "";
+    position: fixed;
+    top: -50vh;
+    left: 0px;
+    width: 100vw;    /* 100% of viewport width */
+    height: 150vh;   /* Example: 150% of viewport height */
+    background-size: cover; 
+    background-position: center; 
+    object-fit: cover;  /* Maintain aspect ratio, prevent distortion */
+    object-position: center; /* More control over crop */
+    z-index: -2; 
+} 
+
+.background-blur { 
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(29px);
+    z-index: -1; 
+} 
+         
+
+.container {
+    z-index: 0;
+    max-width: 270px;
+    max-height: 350px;
+    margin: 50px auto;
+    padding: 0px;
+    background-color: rgb(211, 211, 211); /* Set background color to white */
+    border-radius: 7px;
+    position:static;
+    filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.3));
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.title img {
+    border-top-left-radius: 7px; /* Target top-left corner */
+    border-top-right-radius: 7px; /* Target top-right corner */
+    max-width: 100%;   /* Make image scale to container width */
+    height: auto;      /* Maintain aspect ratio */
+}
+
+
+.title {
+    width: auto;
+    height: 100%;
+    padding: 0px;
+    background-color: #333333;
+    border-top-left-radius: 7px; /* Target top-left corner */
+    border-top-right-radius: 7px; /* Target top-right corner */
+}
+
+
+h1 {
+    font-size: 15.5px;
+}
+
+h2 {
+    font-size: 12px;
+}
+
+h1,
+h2 {
+    color: white;
+    font-weight: lighter;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.service img {
+    max-height: 31px;  /* Adjust as needed to control image height */
+    margin-right: 10px; /* Space between image and button */
+}
+
+.services {
+    background-color: #dfdfdf;
+    display: flex; /* Keep flexbox for row arrangement */
+    flex-direction: column; /* Maintain vertical order */
+    justify-content: space-between; /* Distribute items with space between */
+    padding: 0px;
+    border-bottom-left-radius: 7px; /* Target top-left corner */
+    border-bottom-right-radius: 7px; /* Target top-right corner */
+}
+
+.service {
+    background-color: #ffffff;
+    margin: 0.5px 0;
+    padding: 15px;
+    text-align: right; /* Align options (including button) to the right */
+    border-radius: 0px;
+    display: flex; /* Make service a flex container */
+    justify-content: space-between; /* Distribute elements within service */
+    transition: background-color 0.3s ease;
+}
+
+.service:last-of-type { /* Target the last service element */
+    border-bottom-left-radius: 7px; 
+    border-bottom-right-radius: 7px; 
+}
+
+.service:hover {
+    background-color: rgb(240, 240, 240); 
+  }
+
+.service h3 {
+    text-align: left;
+    margin: 0;
+}
+
+.service button {
+    width: 80px; /* Set a fixed width for buttons */
+    /* Remove max-width property */
+    height: 30px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: rgb(41, 41, 41);
+    margin: auto 5px; /* Remove horizontal margin */
+    text-decoration: none;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border 0.15s ease;
+}
+
+.service button:hover {
+    background-color: #2699fb;
+    color: white;          
+    border: none;
+}
+
+.options {
+    text-align: right;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0);  /* Adjust values as needed */ 
+    padding: 0px;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 12px;
+}
+
+footer a, p {
+    color: #e9e9e994;
+    text-decoration: none;
+}
+
+footer a {
+    color: #e9e9e99c;
+    font-weight: bold;
+}
