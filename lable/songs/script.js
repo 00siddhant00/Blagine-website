@@ -193,6 +193,10 @@ function playOnSpotify() {
   // You can redirect the user to the Spotify track URL or use Spotify SDK if available
 }
 
+function playOnAppleMusic() {
+    window.location.href = "https://music.apple.com/us/artist/blank-sid/1734816742"
+}
+
 function adjustBlur() {
   const zoomLevel = window.innerWidth / document.documentElement.clientWidth;
   const blurStrength = 29 * zoomLevel; 
