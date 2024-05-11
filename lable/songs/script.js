@@ -18,7 +18,8 @@ function fetchSongData(songName) {
     'beyond-open-sky': {
         name: 'Beyond Open Sky',
         imageUrl: 'cover-images/beyond-open-sky.png', // Image URL for the song
-        spotifyUrl: 'https://open.spotify.com/playlist/0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
+        //spotifyUrl: 'https://open.spotify.com/playlist/0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
+        spotifyUrl: 'spotify:track:0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
     // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
     },
 
