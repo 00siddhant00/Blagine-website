@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorGo - Data Deletion Request</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --button-color: #3700b3;
+            --button-hover: #6200ea;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #b0b0b0;
+        }
+
+        .instructions {
+            text-align: left;
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .instructions strong {
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--button-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Data Deletion Request</h1>
+        <p>ColorGo respects your privacy. If you wish to delete your account and remove all associated game data (including User ID, High Scores, Coin Balance, and Progress) from our servers, please follow the instructions below.</p>
+
+        <div class="instructions">
+            <p><strong>Step 1:</strong> Send an email to <a href="mailto:contact@blagine.com">contact@blagine.com</a>.</p>
+            <p><strong>Step 2:</strong> Use the Subject Line: <em>ColorGo Data Deletion Request</em>.</p>
+            <p><strong>Step 3:</strong> In the body of the email, please include your <strong>Username</strong> (e.g., "00Lumen00") so we can locate your data.</p>
+        </div>
+
+        <p>Alternatively, click the button below to open your email client with the details pre-filled:</p>
+
+        <!-- The magic mailto link that pre-fills the subject and body -->
+        <a href="mailto:contact@blagine.com?subject=ColorGo%20Data%20Deletion%20Request&body=Hello%2C%0A%0APlease%20permanently%20delete%20my%20account%20and%20game%20data%20for%20ColorGo.%0A%0AMy%20Username%20is%3A%20%5BINSERT%20USERNAME%20HERE%5D" class="btn">Send Deletion Request</a>
+
+        <div class="footer">
+            <p>Once your request is received, your data will be permanently deleted within 30 days.<br>
+            <a href="https://blagine.com">Return to Blagine.com</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
