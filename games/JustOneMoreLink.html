@@ -35,6 +35,27 @@
             font-family: var(--font-main);
             overflow-x: hidden;
             min-height: 100vh;
+            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/cursor.webp') 0 0, auto;
+        }
+
+        /* Custom Hand Cursor for interactables */
+        a,
+        button,
+        input,
+        .g-item,
+        .s-item {
+            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/hand_cursor.webp') 0 0, pointer;
+        }
+
+        /* Ensure hovered items appear above others */
+        .g-item:hover,
+        .s-item:hover,
+        .sidebar-card:hover,
+        .steam-btn:hover,
+        .contact-btn:hover {
+            z-index: 50;
+            position: relative;
+            /* Ensure z-index applies */
         }
 
         /* Rotating space background — visible when scrolling past hero */
@@ -42,10 +63,10 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 200vmax;
-            height: 200vmax;
-            transform: translate(-50%, -50%) scale(1.2);
-            background-image: url('JOML_Presskit/Space_square_bg.png');
+            width: 120vmax;
+            height: 120vmax;
+            transform: translate(-50%, -50%) scale(1);
+            background-image: url('JOML_Presskit_Preview/Space_square_bg.webp');
             background-size: cover;
             background-position: center;
             animation: bg-rotate 180s linear infinite;
@@ -56,11 +77,11 @@
 
         @keyframes bg-rotate {
             from {
-                transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
             }
 
             to {
-                transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
             }
         }
 
@@ -92,16 +113,20 @@
         .page-content {
             position: relative;
             z-index: 1;
+            padding-top: 3rem;
+            /* Maintain spacing but containment */
         }
 
         /* ─── HERO ─── */
         .hero {
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            margin: 3rem auto;
-            margin-bottom: 3rem;
-            height: 65vh;
+            max-width: 1400px;
+            /* Increased width */
+            margin: 0 auto 3rem;
+            /* Removed top margin to fix backdrop gap */
+            height: 80vh;
+            /* Increased height */
             overflow: visible;
         }
 
@@ -114,14 +139,21 @@
             object-fit: cover;
             display: block;
             border: none;
-            /* Fade on ALL sides */
-            -webkit-mask-image: radial-gradient(ellipse 80% 75% at center, #000 40%, transparent 100%);
-            mask-image: radial-gradient(ellipse 80% 75% at center, #000 40%, transparent 100%);
+            /* Seamless fade at each border independently */
+            -webkit-mask-image:
+                linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+                linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+            -webkit-mask-composite: destination-in;
+            mask-image:
+                linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
+                linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+            mask-composite: intersect;
         }
 
-        /* iframe sits on top, fallback video behind */
+        /* iframe sits on top, opaque black bg to hide fallback video */
         iframe.hero-video {
             z-index: 1;
+            background: #000;
         }
 
         .hero-video-fallback {
@@ -142,16 +174,21 @@
         /* Title overlaid top-left */
         .hero-title {
             position: absolute;
-            top: 1.5rem;
-            left: 2rem;
+            top: 0rem;
+            left: -7rem;
+            /* Align with left edge */
             z-index: 2;
             font-size: 3.5rem;
-            font-weight: 800;
+            font-weight: 100;
+            /* Thin font */
             text-transform: uppercase;
             letter-spacing: -0.02em;
             line-height: 1;
             color: #fff;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .hero-subtitle {
@@ -169,29 +206,92 @@
         /* Download button: half over bottom edge */
         .download-all {
             position: absolute;
-            bottom: -1.5rem;
+            bottom: -1.75rem;
+            /* Adjusted for slightly larger button */
             right: 2rem;
             z-index: 3;
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
             padding: 1rem 2.5rem;
-            background: var(--accent-red);
+            background: linear-gradient(135deg, var(--accent-red), #a93226);
+            /* Subtle gradient */
             color: #fff;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             text-decoration: none;
             font-size: 0.95rem;
-            border: 2px solid #fff;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            /* Subtle border */
+            border-radius: 12px;
+            /* Sharper corners */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), inset 0 2px 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            /* For wipe effect */
         }
 
         .download-all:hover {
-            background: #e74c3c;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(192, 57, 43, 0.5);
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(192, 57, 43, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            padding-right: 3rem;
+            /* Expanding animation */
+        }
+
+        /* Shine wipe effect */
+        .download-all::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.5s;
+        }
+
+        .download-all:hover::after {
+            left: 150%;
+            transition: left 0.7s ease-in-out;
+        }
+
+        /* Animate the SVG icon inside */
+        .download-all svg {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .download-all:hover svg {
+            transform: translateY(2px) scale(1.1);
+        }
+
+        /* Sticky State for Download Button */
+        .download-all.sticky {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            bottom: auto;
+            /* Override bottom positioning */
+            z-index: 1000;
+            /* Ensure it's on top of everything */
+            transform: translateY(0) scale(1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         /* ─── INFO BAR ─── */
@@ -333,18 +433,52 @@
         }
 
         .steam-btn {
-            display: block;
-            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.1rem;
             text-align: center;
             background: linear-gradient(135deg, #1b2838, #2a475e);
             color: #c7d5e0;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             border: 1px solid var(--border-color);
             transition: all 0.2s;
+        }
+
+        /* Demo Button Overlay Style - Steam Green */
+        .demo-overlay-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            left: auto;
+            /* Reset left */
+            transform: none;
+            /* Reset transform */
+            width: auto;
+            padding: 0.2rem 0.8rem;
+            background: linear-gradient(to bottom, #6fa720 5%, #588a1b 95%);
+            color: #d2efa9;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 2px;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.05em;
+        }
+
+        .demo-overlay-btn:hover {
+            background: linear-gradient(to bottom, #8ed034 5%, #6fa720 95%);
+            color: white;
+            box-shadow: 0 0 10px rgba(111, 167, 32, 0.4);
         }
 
         .steam-btn:hover {
@@ -419,29 +553,312 @@
             transform: scale(1.04);
         }
 
-        /* Download icon on hover */
+        /* Download icon: Curved corner tab on hover */
         .g-dl {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            width: 36px;
-            height: 36px;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
             background: var(--accent-red);
-            border-radius: 6px;
+            /* Create the curved "ear" shape */
+            border-bottom-left-radius: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding-top: 10px;
+            padding-right: 10px;
+            opacity: 0;
+            transform: translate(100%, -100%);
+            /* Slide in from corner */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            z-index: 5;
+            pointer-events: none;
+            box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .g-item:hover .g-dl,
+        .s-item:hover .g-dl {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* ─── ICONS GRID (Water Drop Effect) ─── */
+        .icons-grid .g-item {
+            overflow: hidden;
+            /* Contain the drop */
+            /* Transparent background style */
+            background-color: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* The "drop" background overlay */
+        .icons-grid .g-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(192, 57, 43, 0.95);
+            /* High opacity accent red */
+            transform: translateY(-100%);
+            border-radius: 0 0 100% 100%;
+            /* Start as a round droplet shape */
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.4s ease 0.1s;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .icons-grid .g-item:hover::before {
+            transform: translateY(0);
+            border-radius: 0;
+            /* Flatten to cover entirely */
+        }
+
+        /* The centered download icon */
+        .icons-grid .g-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            /* White download icon SVG */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            transition: opacity 0.3s 0.1s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+            z-index: 11;
+            pointer-events: none;
+        }
+
+        .icons-grid .g-item:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* ─── STEAM ASSETS GRID (MASONRY) ─── */
+        .store-layout {
+            column-count: 3;
+            column-gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Remove old columns logic */
+        .store-col {
+            display: contents;
+        }
+
+        .s-item {
+            position: relative;
+            background: transparent;
+            /* No black bars */
+            margin-bottom: 1rem;
+            /* Gap between stacked items */
+            break-inside: avoid;
+            /* Don't split across columns */
+            display: inline-block;
+            /* Essential for column flow */
+            width: 100%;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .s-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            transition: transform 0.5s;
+        }
+
+        /* Span-all for VERY wide hero banners to break the columns */
+        .span-all {
+            column-span: all;
+            display: block;
+            margin-bottom: 1rem;
+            background: transparent;
+        }
+
+        /* Spans are no longer used in columns, remove or repurpose */
+        .span-2,
+        .span-3 {
+            /* No effect in column layout unless we use column-span: all, but that breaks flow */
+        }
+
+        /* Transparent Assets */
+        .s-item.transparent-bg {
+            background-color: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .s-item.transparent-bg img {
+            object-fit: contain;
+            /* Don't stretch transparent logos */
+            padding: 2rem;
+        }
+
+        .s-item:hover {
+            border-color: var(--accent-red);
+            z-index: 5;
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .s-item:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .store-layout {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .span-3 {
+                grid-column: span 2;
+            }
+
+            /* Cap at 2 */
+        }
+
+        @media (max-width: 600px) {
+            .store-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .span-2,
+            .span-3 {
+                grid-column: span 1;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .store-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .store-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ─── DOWNLOAD ICONS BUTTON ─── */
+        .download-icons-btn {
+            background: #000;
+            /* Black background like other items */
+            color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transform: translateY(-4px);
-            transition: opacity 0.2s, transform 0.2s;
-            z-index: 5;
-            pointer-events: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            font-size: 1.1rem;
+            /* Increased text size */
+            border: 1px solid transparent;
+            grid-column: span 3;
+            /* Fill the empty space */
+            transition: border-color 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* Contain animations */
         }
 
-        .g-item:hover .g-dl {
-            opacity: 1;
+        .download-icons-btn:hover {
+            border-color: var(--accent-red);
+            z-index: 20;
+        }
+
+        /* Water Drop Background Effect */
+        .download-icons-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(192, 57, 43, 0.95);
+            transform: translateY(-100%);
+            border-radius: 0 0 50% 50%;
+            /* Wider curve for the wide button */
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.4s ease 0.1s;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .download-icons-btn:hover::before {
             transform: translateY(0);
+            border-radius: 0;
+        }
+
+        /* Text Animations */
+        .btn-text-default,
+        .btn-text-hover {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            /* Center anchor for both */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s;
+            z-index: 1;
+            padding: 0 1rem;
+        }
+
+        /* Default text: Starts centered (at -50% Y), goes down on hover */
+        .btn-text-default {
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+
+        .download-icons-btn:hover .btn-text-default {
+            transform: translateY(150%);
+            /* Slide down out of view */
+            opacity: 0;
+        }
+
+        /* Hover text: Starts above (at -250% Y), comes to center (at -50% Y) on hover */
+        .btn-text-hover {
+            transform: translateY(-250%);
+            /* Start well above */
+            opacity: 0;
+            color: #fff;
+            /* Ensure white text on red bg */
+        }
+
+        .download-icons-btn:hover .btn-text-hover {
+            transform: translateY(-50%);
+            /* Slide down to center */
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .download-icons-btn {
+                grid-column: 1 / -1;
+                /* Full width on mobile */
+            }
         }
 
         /* ─── CREDITS ─── */
@@ -530,6 +947,52 @@
                 text-align: center;
             }
         }
+
+        /* ─── CUSTOM SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-void);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 5px;
+            border: 2px solid var(--bg-void);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-red);
+        }
+
+        /* Toast Notification */
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 8px 12px;
+            position: fixed;
+            z-index: 2000;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -561,10 +1024,13 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <!-- Fallback local video for local testing -->
-            <video class="hero-video hero-video-fallback" src="JOML_Presskit/Gifs/fast_up.mp4" autoplay loop muted
-                playsinline></video>
+            <video class="hero-video hero-video-fallback" src="JOML_Presskit_Preview/Gifs/fast_up.mp4" autoplay loop
+                muted playsinline></video>
             <div class="hero-overlay"></div>
-            <h1 class="hero-title">Just One More Link</h1>
+            <h1 class="hero-title">
+                <img src="JOML_Presskit_Preview/Shortcut Icon.webp" alt="Icon" style="height: 1em; width: auto;">
+                Just One More Link
+            </h1>
             <span class="hero-subtitle">Press Kit</span>
             <a href="JOML_Presskit.zip" class="download-all" download>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -601,7 +1067,7 @@
                 </div>
                 <div class="info-cell">
                     <span class="label">Contact</span>
-                    <a href="mailto:contact@blagine.com">contact@blagine.com</a>
+                    <a href="javascript:void(0)" onclick="copyEmail(event)">contact@blagine.com</a>
                 </div>
             </div>
         </div>
@@ -609,47 +1075,56 @@
         <!-- ═══════════ MAIN ═══════════ -->
         <div class="main-wrap">
             <div class="desc-panel">
-                <div class="panel-title">Description</div>
-                <p class="pitch">
-                    "A strategic link-building arcade roguelite where every connection counts, and greed is your
-                    greatest
-                    enemy."
-                </p>
-                <p class="desc-body">
-                    Dive into a stylized cyber-void where you connect nodes to extract resources, build immense
-                    networks,
-                    and push your luck against a ticking clock. Just One More Link combines the satisfaction of
-                    connecting
-                    dots with the tension of high-stakes gambling.
-                </p>
-                <p class="desc-body">
-                    As an Operator, you must balance efficiency with ambition. Will you cash out your links safely, or
-                    risk
-                    it all for just one more connection? With a variety of upgrades, unlockable operators, and
-                    game-changing
-                    abilities, no two runs are the same.
-                </p>
-
-                <div class="panel-title" style="margin-top: 2rem;">Key Features</div>
-                <ul class="feat-list">
-                    <li><strong>Push Your Luck</strong> — Risk losing everything for higher rewards</li>
-                    <li><strong>Tactile Linking</strong> — Satisfying node connection mechanics</li>
-                    <li><strong>Roguelite Progression</strong> — Unlockable operators and permanent upgrades</li>
-                    <li><strong>Stylized Visuals</strong> — Glassmorphism UI set in a deep cosmic void</li>
-                    <li><strong>Short Loops</strong> — Perfect for quick sessions or hours of "just one more run"</li>
+                <div class="panel-title">The Loop</div>
+                <ul class="feat-list" style="margin-bottom: 2rem;">
+                    <li><strong>Invest:</strong> Buy run time. Costs and gains scale exponentially.</li>
+                    <li><strong>Harvest:</strong> Link crystals for massive profits. Longer chains = higher multipliers.
+                    </li>
+                    <li><strong>Panic:</strong> Chains have weight. Stretch them too far and they snap. Fail to cash in
+                        before 0.00s and you lose it all.</li>
+                    <li><strong>Upgrade:</strong> Spend "Zek" on the Constellation Tree for permanent abilities and
+                        greed modifiers.</li>
                 </ul>
+
+                <div class="panel-title">Features</div>
+                <ul class="feat-list">
+                    <li><strong>Tactile Physics:</strong> Crisp, snappy chain mechanics rewarding precision. No floaty
+                        movement.</li>
+                    <li><strong>High Stakes Economy:</strong> A "Pay-to-Play" cycle. Wager earnings to fund the next
+                        run. Profit or crash.</li>
+                </ul>
+
+                <br>
+                <div class="desc-body"
+                    style="border-left: 3px solid var(--accent-red); padding-left: 1rem; font-style: italic; color: var(--text-muted); opacity: 0.9;">
+                    "Built to reject idle autoclickers. Every upgrade has weight, every strategy determines survival.
+                    It’s
+                    not relaxing—it’s deep, difficult, and respects your intelligence. The Demo is live."
+                </div>
             </div>
 
             <aside class="sidebar">
-                <div class="sidebar-card">
-                    <img src="JOML_Presskit/store page assets/store_capsule_vertical_jmol_english.png"
+                <div class="sidebar-card" style="position: relative;">
+                    <img src="JOML_Presskit_Preview/store page assets/store_capsule_vertical_jmol_english.webp"
                         alt="Game Capsule">
+                    <!-- Demo Overlay Button -->
+                    <a href="https://store.steampowered.com/app/4303110/Just_One_More_Link/" target="_blank"
+                        class="demo-overlay-btn">
+                        Demo
+                    </a>
                 </div>
                 <a href="https://store.steampowered.com/app/4303110/Just_One_More_Link/" target="_blank"
                     class="steam-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                        class="bi bi-steam" viewBox="0 0 16 16">
+                        <path
+                            d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.2 2.2 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.22 2.22 0 0 1-1.312-1.568L.33 10.333Z" />
+                        <path
+                            d="M4.868 12.683a1.715 1.715 0 0 0 1.318-3.165 1.7 1.7 0 0 0-1.263-.02l1.023.424a1.261 1.261 0 1 1-.97 2.33l-.99-.41a1.7 1.7 0 0 0 .882.84Zm3.726-6.687a2.03 2.03 0 0 0 2.027 2.029 2.03 2.03 0 0 0 2.027-2.029 2.03 2.03 0 0 0-2.027-2.027 2.03 2.03 0 0 0-2.027 2.027m2.03-1.527a1.524 1.524 0 1 1-.002 3.048 1.524 1.524 0 0 1 .002-3.048" />
+                    </svg>
                     View on Steam
                 </a>
-                <a href="mailto:contact@blagine.com" class="contact-btn">
+                <a href="javascript:void(0)" onclick="copyEmail(event)" class="contact-btn">
                     Press Inquiries → contact@blagine.com
                 </a>
             </aside>
@@ -661,130 +1136,470 @@
             <div class="gallery-grid">
 
                 <!-- Videos -->
-                <a href="JOML_Presskit/Gifs/fast_pp.mp4" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Gifs/fast_pp.mp4" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <video src="JOML_Presskit/Gifs/fast_pp.mp4" autoplay loop muted playsinline></video>
+                    <video src="JOML_Presskit_Preview/Gifs/fast_pp.mp4" autoplay loop muted playsinline></video>
                 </a>
 
-                <a href="JOML_Presskit/Gifs/fast_up.mp4" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Gifs/fast_up.mp4" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <video src="JOML_Presskit/Gifs/fast_up.mp4" autoplay loop muted playsinline></video>
+                    <video src="JOML_Presskit_Preview/Gifs/fast_up.mp4" autoplay loop muted playsinline></video>
                 </a>
 
                 <!-- GIF -->
-                <a href="JOML_Presskit/Gifs/core_gameplay_loop_compressed.gif" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Gifs/core_gameplay_loop_compressed.gif" class="g-item"
+                    download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Gifs/core_gameplay_loop_compressed.gif" alt="Gameplay Loop">
+                    <img src="JOML_Presskit_Preview/Gifs/core_gameplay_loop_compressed.webp" alt="Gameplay Loop">
                 </a>
 
                 <!-- Concept Art -->
-                <a href="JOML_Presskit/Concept-art/Weaver_bots.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Concept-art/Weaver_bots.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Concept-art/Weaver_bots.png" alt="Concept Art - Weaver Bots">
+                    <img src="JOML_Presskit_Preview/Concept-art/Weaver_bots.webp" alt="Concept Art - Weaver Bots">
                 </a>
 
                 <!-- Screenshots -->
-                <a href="JOML_Presskit/Screenshorts/Screenshot 1.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 1.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 1.png" loading="lazy" alt="Screenshot 1">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 1.webp" loading="lazy" alt="Screenshot 1">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 2.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 2.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 2.png" loading="lazy" alt="Screenshot 2">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 2.webp" loading="lazy" alt="Screenshot 2">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 3.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 3.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 3.png" loading="lazy" alt="Screenshot 3">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 3.webp" loading="lazy" alt="Screenshot 3">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 4.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 4.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 4.png" loading="lazy" alt="Screenshot 4">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 4.webp" loading="lazy" alt="Screenshot 4">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 5.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 5.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 5.png" loading="lazy" alt="Screenshot 5">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 5.webp" loading="lazy" alt="Screenshot 5">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 6.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 6.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 6.png" loading="lazy" alt="Screenshot 6">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 6.webp" loading="lazy" alt="Screenshot 6">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 7.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 7.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 7.png" loading="lazy" alt="Screenshot 7">
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 7.webp" loading="lazy" alt="Screenshot 7">
                 </a>
 
-                <a href="JOML_Presskit/Screenshorts/Screenshot 2026-01-04 060235.png" class="g-item" download>
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/Screenshot 2026-01-04 060235.png" class="g-item"
+                    download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
                             stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg></div>
-                    <img src="JOML_Presskit/Screenshorts/Screenshot 2026-01-04 060235.png" loading="lazy"
+                    <img src="JOML_Presskit_Preview/Screenshorts/Screenshot 2026-01-04 060235.webp" loading="lazy"
                         alt="Screenshot">
                 </a>
 
+            </div>
+
+            <div class="gallery-title" style="margin-top: 3rem;">Steam Assets</div>
+
+            <!-- Custom Grid Layout for Mixed Aspect Ratios -->
+            <div class="store-layout">
+
+                <!-- 1. HERO - Full Width -->
+                <a href="JOML_Presskit_High_Res_Download/Library assets/library_hero.png" class="s-item span-3"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Library assets/library_hero.webp" alt="Library Hero">
+                </a>
+
+                <!-- 2. Vertical Capsule -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/store_capsule_vertical_jmol_english.png"
+                    class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/store_capsule_vertical_jmol_english.webp"
+                        alt="Vertical Capsule">
+                </a>
+
+                <!-- 3. Main Capsule - Wide -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/store_capsule_main_joml_english.png"
+                    class="s-item span-2" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/store_capsule_main_joml_english.webp"
+                        alt="Main Capsule">
+                </a>
+
+                <!-- 4. Transparent Title - Wide & Transparent -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/transparent_title.png"
+                    class="s-item span-2 transparent-bg" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/transparent_title.webp" alt="Transparent Title">
+                </a>
+
+                <!-- 5. Library Capsule - Tall -->
+                <a href="JOML_Presskit_High_Res_Download/Library assets/library_capsule.png" class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Library assets/library_capsule.webp" alt="Library Capsule">
+                </a>
+
+                <!-- 6. Store Background - Full -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/store_page_background.png"
+                    class="s-item span-3" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/store_page_background.webp"
+                        alt="Store Background">
+                </a>
+
+                <!-- 7. Small Capsule -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/store_capsule_small_joml_english.png"
+                    class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/store_capsule_small_joml_english.webp"
+                        alt="Small Capsule">
+                </a>
+
+                <!-- 8. Transparent Logo - Small & Transparent -->
+                <a href="JOML_Presskit_High_Res_Download/Library assets/library_logo_transparent.png"
+                    class="s-item transparent-bg" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Library assets/library_logo_transparent.webp" alt="Library Logo">
+                </a>
+
+                <!-- 9. Header Capsule -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/store_capsule_header_joml_english.png"
+                    class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/store_capsule_header_joml_english.webp"
+                        alt="Header Capsule">
+                </a>
+
+                <!-- 10. Header -->
+                <a href="JOML_Presskit_High_Res_Download/Library assets/header.jpg" class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Library assets/header.webp" alt="Header">
+                </a>
+
+                <!-- 11. Library Header -->
+                <a href="JOML_Presskit_High_Res_Download/Library assets/library_header.png" class="s-item span-2"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Library assets/library_header.webp" alt="Library Header">
+                </a>
+
+                <!-- 12. Capsule v4.5 -->
+                <a href="JOML_Presskit_High_Res_Download/store page assets/capsule_v4.5.png" class="s-item" download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/store page assets/capsule_v4.5.webp" alt="Capsule v4.5">
+                </a>
+            </div>
+
+            <div class="gallery-title" style="margin-top: 3rem;">In-Game Icons</div>
+            <div class="gallery-grid icons-grid"
+                style="grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 1rem;">
+                <!-- Full Icon Set -->
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/chain_length.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/chain_length.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/chronophagy.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/chronophagy.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/connect_radius.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/connect_radius.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/critical_obsession.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/critical_obsession.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/crystal_quality_to_blue.png"
+                    class="g-item" style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/crystal_quality_to_blue.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/crystal_quality_to_green.png"
+                    class="g-item" style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/crystal_quality_to_green.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/crystal_quality_to_purple.png"
+                    class="g-item" style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/crystal_quality_to_purple.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/crystal_quality_to_red.png"
+                    class="g-item" style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/crystal_quality_to_red.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/desperate_prayer.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/desperate_prayer.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/ego_unlock.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/ego_unlock.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/eye_of_a_poet.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/eye_of_a_poet.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/gluttony_spike.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/gluttony_spike.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/greedy_laser.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/greedy_laser.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/laser_chance.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/laser_chance.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/laser_width.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/laser_width.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/locked_node.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/locked_node.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/matter_multiplicity.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/matter_multiplicity.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/miracle_matter.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/miracle_matter.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/number_of_crystals.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/number_of_crystals.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/short_fuse.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/short_fuse.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/time_bank.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/time_bank.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/twin_yield.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/twin_yield.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/unlock_ash.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/unlock_ash.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/unlock_du.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/unlock_du.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/unlock_laser.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/unlock_laser.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/voracity.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/voracity.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/weaver_appetite.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/weaver_appetite.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/weaver_bots.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/weaver_bots.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/weaver_reboot.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/weaver_reboot.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/weaver_swarm.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/weaver_swarm.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/weaver_velocity.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/weaver_velocity.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/wish_for_a_falling_star.png"
+                    class="g-item" style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/wish_for_a_falling_star.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+                <a href="JOML_Presskit_High_Res_Download/In_Game_Art/NodeIcons/zek_invest_for_time.png" class="g-item"
+                    style="aspect-ratio: 1;" download>
+                    <img src="JOML_Presskit_Preview/In_Game_Art/NodeIcons/zek_invest_for_time.webp"
+                        style="padding: 1rem; object-fit: contain;">
+                </a>
+
+                <!-- "Red Box" Download All Icons -->
+                <!-- Spans 3 columns to fill the remaining space -->
+                <a href="In_Game_Art_All_Download.zip" class="download-icons-btn" download>
+                    <span class="btn-text-default">Download All Icons</span>
+                    <span class="btn-text-hover">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Click to Download
+                    </span>
+                </a>
             </div>
         </div>
 
@@ -799,6 +1614,103 @@
 
     </div> <!-- /page-content -->
 
+    <!-- Tilt Effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof VanillaTilt !== 'undefined') {
+                const tiltElements = document.querySelectorAll(".g-item, .s-item, .sidebar-card, .download-all, .steam-btn, .contact-btn, .back-btn, .download-icons-btn");
+                VanillaTilt.init(tiltElements, {
+                    max: 10,
+                    speed: 400,
+                    glare: true,
+                    "max-glare": 0.2,
+                    gyroscope: true,
+                    scale: 1.02
+                });
+            }
+        });
+    </script>
+
+    <!-- Switches between YouTube iframe (Web) and Local Video (File Protocol) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframe = document.querySelector('iframe.hero-video');
+            const localVideo = document.querySelector('.hero-video-fallback');
+
+            if (window.location.protocol === 'file:') {
+                // We are local: Local video wins
+                if (iframe) iframe.style.display = 'none';
+                if (localVideo) localVideo.style.display = 'block';
+                console.log('Local file detected: Using local video fallback.');
+            } else {
+                // We are on web (GitHub etc): YouTube iframe wins
+                if (localVideo) {
+                    localVideo.pause();
+                    localVideo.style.display = 'none';
+                    localVideo.remove(); // Remove entirely to save resources
+                }
+                if (iframe) iframe.style.display = 'block';
+                console.log('Web protocol detected: Using YouTube iframe.');
+            }
+        });
+    </script>
+
+    <!-- Sticky Download Button Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.querySelector('.download-all');
+            const hero = document.querySelector('.hero');
+
+            // Calculate the point where the button should become sticky
+            // Using the hero's bottom edge as a reference
+            const triggerPoint = hero.offsetTop + hero.offsetHeight;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > triggerPoint) {
+                    if (!btn.classList.contains('sticky')) {
+                        btn.classList.add('sticky');
+                    }
+                } else {
+                    if (btn.classList.contains('sticky')) {
+                        btn.classList.remove('sticky');
+                    }
+                }
+            });
+        });
+
+        function copyEmail(e) {
+            const email = "contact@blagine.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById("toast");
+
+                if (e) {
+                    const x = e.clientX;
+                    const y = e.clientY - 40; // 40px above cursor
+                    toast.style.left = x + 'px';
+                    toast.style.top = y + 'px';
+                    toast.style.transform = 'translate(-50%, 0)';
+                } else {
+                    // Fallback centering
+                    toast.style.left = '50%';
+                    toast.style.bottom = '30px';
+                    toast.style.top = 'auto';
+                    toast.style.transform = 'translateX(-50%)';
+                }
+
+                toast.classList.add("show");
+                if (window.toastTimeout) clearTimeout(window.toastTimeout);
+                window.toastTimeout = setTimeout(function () {
+                    toast.classList.remove("show");
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+
+    <!-- Toast Container -->
+    <div id="toast">Copied To Clipboard!</div>
 </body>
 
 </html>
