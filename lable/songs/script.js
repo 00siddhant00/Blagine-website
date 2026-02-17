@@ -1,45 +1,45 @@
 // Function to parse the URL and extract the song name from it
 function getSongNameFromURL() {
-  const url = window.location.href;
-  const parts = url.split('/');
-  const htmlname = parts[parts.length - 1];
-  const name = htmlname.split('.');
-  return name[0]; // Get the last part of the URL (song name)
+    const url = window.location.href;
+    const parts = url.split('/');
+    const htmlname = parts[parts.length - 1];
+    const name = htmlname.split('.');
+    return name[0]; // Get the last part of the URL (song name)
 }
 
 // Function to fetch song data based on the song name
 function fetchSongData(songName) {
-  // Here you can implement your logic to fetch song data based on the song name
-  // This could involve making an API request to your backend server or fetching data from a static file
+    // Here you can implement your logic to fetch song data based on the song name
+    // This could involve making an API request to your backend server or fetching data from a static file
 
-  // For now, let's assume you have a static object containing data for your songs
-  const songsData = {
+    // For now, let's assume you have a static object containing data for your songs
+    const songsData = {
 
-    'beyond-open-sky': {
-        name: 'Beyond Open Sky',
-        imageUrl: 'cover-images/beyond-open-sky.png', // Image URL for the song
-        //spotifyUrl: 'https://open.spotify.com/playlist/0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
-        spotifyUrl: 'spotify:playlist:0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
-    // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
-    },
+        'zen_lofi': {
+            name: 'Beyond Open Sky',
+            imageUrl: 'cover-images/zen_lofi.jpg', // Image URL for the song
+            //spotifyUrl: 'https://open.spotify.com/playlist/0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
+            spotifyUrl: 'spotify:playlist:0Xu31SOrgW82HseEGM7T8Q?si=ca2f883d549b4b4c'
+            // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
+        },
 
-      'abyss-of-mist': {
-          name: 'Abyss Of Mist',
-          imageUrl: 'cover-images/abyss-of-mist.png', // Image URL for the song
-          spotifyUrl: 'https://open.spotify.com/track/53RKpBePgcMnEl7DGFKeoj?si=f62b93fbb9af4090'
-      // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
-      },
-      'beauty-of-freedom': {
-        name: 'Beauty of Freedom',
-        imageUrl: 'cover-images/beauty-of-freedom.png', // Image URL for the song
-        spotifyUrl: 'https://open.spotify.com/track/42CA5ifn4cj8i11BoPG7Vi?si=8f59796c4f444f85'
-    // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
-      },
-      'lost-in-moonlights-dream': {
-          name: 'Lost in Moonlight\'s Dream',
-          imageUrl: 'cover-images/lost-in-moonlights-dream.png', // Image URL for the song
-          spotifyUrl: 'https://open.spotify.com/track/7zcdstaXGtMmEbaqe6qVSQ?si=1167c47457514cbc'
-          // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
+        'abyss-of-mist': {
+            name: 'Abyss Of Mist',
+            imageUrl: 'cover-images/abyss-of-mist.png', // Image URL for the song
+            spotifyUrl: 'https://open.spotify.com/track/53RKpBePgcMnEl7DGFKeoj?si=f62b93fbb9af4090'
+            // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
+        },
+        'beauty-of-freedom': {
+            name: 'Beauty of Freedom',
+            imageUrl: 'cover-images/beauty-of-freedom.png', // Image URL for the song
+            spotifyUrl: 'https://open.spotify.com/track/42CA5ifn4cj8i11BoPG7Vi?si=8f59796c4f444f85'
+            // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
+        },
+        'lost-in-moonlights-dream': {
+            name: 'Lost in Moonlight\'s Dream',
+            imageUrl: 'cover-images/lost-in-moonlights-dream.png', // Image URL for the song
+            spotifyUrl: 'https://open.spotify.com/track/7zcdstaXGtMmEbaqe6qVSQ?si=1167c47457514cbc'
+            // Add more data as needed (e.g., Spotify URL, Apple Music URL, etc.)
         },
         'begining-of-past': {
             name: 'Begining of Past',
@@ -151,47 +151,47 @@ function fetchSongData(songName) {
             imageUrl: 'cover-images/whispers-of-white-wings.png',
             spotifyUrl: 'https://open.spotify.com/track/4KekjCmBX8MohnLTZBWxf3?si=043ab9c3ce94490d'
         }
-      // Add data for other songs here
-  };
+        // Add data for other songs here
+    };
 
-  return songsData[songName];
+    return songsData[songName];
 }
 
 let spotifyLink = 'https://open.spotify.com';
 
 // Function to update the HTML with song data
 function updateHTML(songData) {
-  document.getElementById('track-image').src = songData.imageUrl;
-  document.querySelector('.title img').src = songData.imageUrl
-  document.querySelector('.title img').alt = songData.name;
-  document.getElementById('track-name').textContent = songData.name;
+    document.getElementById('track-image').src = songData.imageUrl;
+    document.querySelector('.title img').src = songData.imageUrl
+    document.querySelector('.title img').alt = songData.name;
+    document.getElementById('track-name').textContent = songData.name;
 
-  spotifyLink = songData.spotifyUrl;
-  // You can add more code here to update other elements in the HTML based on the song data
+    spotifyLink = songData.spotifyUrl;
+    // You can add more code here to update other elements in the HTML based on the song data
 }
 
 // Function to handle loading the page with song data
 function loadSongPage() {
-  const songName = getSongNameFromURL();
-  const songData = fetchSongData(songName);
-  if (songData) {
-      updateHTML(songData);
-  } else {
-      // Handle case where song data is not found (e.g., display an error message)
-      console.error('Song data not found');
-  }
+    const songName = getSongNameFromURL();
+    const songData = fetchSongData(songName);
+    if (songData) {
+        updateHTML(songData);
+    } else {
+        // Handle case where song data is not found (e.g., display an error message)
+        console.error('Song data not found');
+    }
 }
 
 // Call the loadSongPage function when the page loads
-window.onload = function() {
-  loadSongPage();
+window.onload = function () {
+    loadSongPage();
 };
 
 // Function to play track on Spotify
 function playOnSpotify() {
-  window.location.href = spotifyLink;
-  // Code to play the track on Spotify
-  // You can redirect the user to the Spotify track URL or use Spotify SDK if available
+    window.location.href = spotifyLink;
+    // Code to play the track on Spotify
+    // You can redirect the user to the Spotify track URL or use Spotify SDK if available
 }
 
 function playOnAppleMusic() {
@@ -199,11 +199,11 @@ function playOnAppleMusic() {
 }
 
 function adjustBlur() {
-  const zoomLevel = window.innerWidth / document.documentElement.clientWidth;
-  const blurStrength = 29 * zoomLevel; 
-  document.querySelector('.background-blur').style.backdropFilter = `blur(${blurStrength}px)`;
+    const zoomLevel = window.innerWidth / document.documentElement.clientWidth;
+    const blurStrength = 29 * zoomLevel;
+    document.querySelector('.background-blur').style.backdropFilter = `blur(${blurStrength}px)`;
 }
 
 // Initial call on page load
-adjustBlur(); 
+adjustBlur();
 window.addEventListener('resize', adjustBlur);

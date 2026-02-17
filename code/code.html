@@ -1,410 +1,409 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Code — Blagine</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css"> <!-- Reuse main styles -->
+    <style>
+        /* Override specifically for gallery layout */
+        body {
+            display: block;
+            height: auto;
+            padding: 0;
+            overflow-y: scroll;
+        }
+
+        .gallery-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .gallery-header h1 {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #4cc9f0, #7e5bef);
+            /* Code Theme */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem 8rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--glass-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s var(--ease-elastic);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-tertiary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1.5rem;
+            color: var(--accent-tertiary);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-tertiary);
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+
+        /* Go Back Button */
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-surface);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--hover-bg);
+            transform: scale(1.1);
+        }
+    </style>
 </head>
+
 <body>
-    <div id="intro" class="intro-container">
-        <h1 class="typewriter">
-            <span class="grey">Do</span> 
-            <span class="grey">I</span> 
-            <span class="white">Code</span>
-            <span class="white question-mark">?</span>
-        </h1>
+
+    <div class="ambient-canvas">
+        <div class="blob blob-1" style="background: #1a0b2e;"></div>
+        <div class="blob blob-2" style="background: #0b1a2e;"></div> <!-- Blueish for code -->
+        <div class="grain-overlay"></div>
     </div>
 
-    <div id="main-content" class="hidden">
-        <div class="top-bar">
-            <h2>Do I Code?</h2>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#apps">Apps</a></li>
-                <li><a href="#games">Games</a></li>
-                <li><a href="#automation">Automations</a></li>
-                <li><a href="#tools">Tools</a></li>
-            </ul>
-        </nav>
+    <a href="../index.html" class="back-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+    </a>
 
-        <!-- Apps Section -->
-        <section id="apps" class="section">
-            <div class="content">
-                <h1>Apps</h1>
-                <div class="project-container">
-                    <div class="project-row">
-                        <div class="project-card">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93m6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.18 5 4.05 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                            </svg>
-                            <h3 class="project-title">MindCare</h3>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">MindCare</h3>
-                            <p class="project-description">Mental wellness app with guided meditations and cognitive behavioral therapy exercises.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-row from-right">
-                        <div class="project-card">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4m0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3z"/>
-                            </svg>
-                            <h3 class="project-title">SafeTap</h3>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">SafeTap</h3>
-                            <p class="project-description">Emergency response app with one-tap alert system and real-time location sharing.</p>
-                        </div>
-                    </div>
+    <header class="gallery-header">
+        <h1>Do I Code?</h1>
+        <p style="color: var(--text-muted);">Apps • Games • Experiences</p>
+    </header>
 
-                    <div class="project-row">
-                        <div class="project-card">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M9.07 17.28h2.68l3.49-6.46h-2.68l-1.71 3.19-1.78-3.19H5.58l3.49 6.46M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.96.81 4.12 2.28 5.78L7.4 16.8A6.45 6.45 0 0 1 5.5 12 6.5 6.5 0 0 1 12 5.5 6.5 6.5 0 0 1 18.5 12c0 1.54-.5 2.94-1.34 4.11l2.02 1.74C20.75 15.97 22 13.4 22 12A10 10 0 0 0 12 2z"/>
-                            </svg>
-                            <h3 class="project-title">Tiom</h3>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Tiom</h3>
-                            <p class="project-description">AI-powered time management app with smart scheduling features.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="gallery-grid">
 
-        <!-- Games Section -->
-        <!-- Games Section -->
-<section id="games" class="section">
-    <div class="content">
-        <h1>Games</h1>
-        <div class="project-container">
-            
-            <!-- Released Games -->
-            <div class="subsection">
-                <h2 class="subsection-title">Released Games</h2>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93m6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.18 5 4.05 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                    </svg>
-                    <h3 class="project-title">Color Go</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Color Go</h3>
-                    <p class="project-description">Puzzle platformer where colors dictate gameplay mechanics.</p>
-                </div>
-            </div>
-
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4m0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3z"/>
-                    </svg>
-                    <h3 class="project-title">YOU</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">YOU</h3>
-                    <p class="project-description">Narrative-driven exploration game about self-discovery.</p>
-                </div>
-            </div>
-
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M17 4H7a5 5 0 0 0-5 5v11h18a2 2 0 0 0 2-2V9a5 5 0 0 0-5-5m-7 14H5V9h5v9m7 0h-5V9h5v9z"/>
-                    </svg>
-                    <h3 class="project-title">Unknown Slayer</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Unknown Slayer</h3>
-                    <p class="project-description">Fast-paced action RPG with dynamic combat system.</p>
-                </div>
-            </div>
-
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m-2-9V8h4v3h3l-5 5-5-5h3z"/>
-                    </svg>
-                    <h3 class="project-title">THE SHELL</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">THE SHELL</h3>
-                    <p class="project-description">Mystery adventure game set in a surreal ocean world.</p>
-                </div>
+        <!-- APPS -->
+        <div class="project-card">
+            <div>
+                <span class="section-tag">App</span>
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93m6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.18 5 4.05 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg></div>
+                <h3 class="project-title">MindCare</h3>
+                <p class="project-desc">Mental wellness app with guided meditations and cognitive behavioral therapy
+                    exercises.</p>
             </div>
         </div>
 
-            <!-- VR Games -->
-        <div class="subsection">
-            <h2 class="subsection-title">VR Games</h2>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.77.76-1.31 1.88-1.31 1.24 0 1.85.44 1.85 1.28h1.52c0-1.27-.95-2.32-3.03-2.54V6.5h-2v1.15c-2.14.21-3.09 1.72-3.09 3.03 0 1.97 1.61 2.61 3.45 3.12 1.87.51 2.35 1.07 2.35 1.85 0 .77-.58 1.4-1.88 1.4-1.37 0-2.08-.53-2.08-1.43H8.25c0 1.55 1.32 2.72 3.37 2.93V17.5h2v-1.16c2.1-.2 3.13-1.73 3.13-3.09 0-2.2-1.9-2.79-3.44-3.17z"/>
-                    </svg>
-                    <h3 class="project-title">Chronomancy</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Chronomancy</h3>
-                    <p class="project-description">Time manipulation VR puzzle adventure.</p>
-                </div>
-            </div>
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Vicket</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Vicket</h3>
-                    <p class="project-description">Vr Cricket.</p>
-                </div>
-            </div>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.77.76-1.31 1.88-1.31 1.24 0 1.85.44 1.85 1.28h1.52c0-1.27-.95-2.32-3.03-2.54V6.5h-2v1.15c-2.14.21-3.09 1.72-3.09 3.03 0 1.97 1.61 2.61 3.45 3.12 1.87.51 2.35 1.07 2.35 1.85 0 .77-.58 1.4-1.88 1.4-1.37 0-2.08-.53-2.08-1.43H8.25c0 1.55 1.32 2.72 3.37 2.93V17.5h2v-1.16c2.1-.2 3.13-1.73 3.13-3.09 0-2.2-1.9-2.79-3.44-3.17z"/>
-                    </svg>
-                    <h3 class="project-title">Void Defender</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Void Defender</h3>
-                    <p class="project-description">Save The Earth Vr Game.</p>
-                </div>
+        <div class="project-card">
+            <div>
+                <span class="section-tag">App</span>
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4m0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3z" />
+                    </svg></div>
+                <h3 class="project-title">SafeTap</h3>
+                <p class="project-desc">Emergency response app with one-tap alert system and real-time location sharing.
+                </p>
             </div>
         </div>
 
-        <!-- Ongoing Games -->
-        <div class="subsection">
-            <h2 class="subsection-title">Ongoing Games</h2>
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Cozy Sort</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Cozy Sort</h3>
-                    <p class="project-description">Relaxing inventory organization simulator with ASMR sounds.</p>
-                </div>
-            </div>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Balloon Die</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Balloon Die</h3>
-                    <p class="project-description">4x4 grid-based balloon combination puzzle game.</p>
-                </div>
-            </div>
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 3.59 8 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Carnival</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Carnival</h3>
-                    <p class="project-description">A psychological horror game set in a haunted amusement park.</p>
-                </div>
-            </div>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 3.59 8 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Beyond Abyss</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Beyond Abyss</h3>
-                    <p class="project-description">An atmospheric deep-sea exploration game with survival elements.</p>
-                </div>
-            </div>
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 3.59 8 8 8-3.59 8-8 8zm3-14H9v2h6V6zm0 3H9v2h6V9zm0 3H9v2h6v-2z"/>
-                    </svg>
-                    <h3 class="project-title">Carnival</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Carnival</h3>
-                    <p class="project-description">A psychological horror game set in a haunted amusement park.</p>
-                </div>
+        <div class="project-card">
+            <div>
+                <span class="section-tag">App</span>
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M9.07 17.28h2.68l3.49-6.46h-2.68l-1.71 3.19-1.78-3.19H5.58l3.49 6.46M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.96.81 4.12 2.28 5.78L7.4 16.8A6.45 6.45 0 0 1 5.5 12 6.5 6.5 0 0 1 12 5.5 6.5 6.5 0 0 1 18.5 12c0 1.54-.5 2.94-1.34 4.11l2.02 1.74C20.75 15.97 22 13.4 22 12A10 10 0 0 0 12 2z" />
+                    </svg></div>
+                <h3 class="project-title">Tiom</h3>
+                <p class="project-desc">AI-powered time management app with smart scheduling features.</p>
             </div>
         </div>
-        
-        <!-- Prototypes -->
-        <!-- <div class="subsection">
-            <h2 class="subsection-title">Prototypes</h2>
-            <div class="project-row from-right">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 3.59 8 8 8-3.59 8-8 8zm-1-13h2v2h-2V7zm0 4h2v6h-2v-6z"/>
+
+        <!-- GAMES -->
+        <a href="../games/JustOneMoreLink.html" class="project-card" style="text-decoration: none; color: inherit;">
+            <div>
+                <span class="section-tag" style="color: #f72585; border-color: rgba(247, 37, 133, 0.3);">Game</span>
+                <div class="project-icon" style="color: #f72585;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                     </svg>
-                    <h3 class="project-title">Tower Of Elements</h3>
                 </div>
-                <div class="project-info">
-                    <h3 class="project-title">Tower Of Elements</h3>
-                    <p class="project-description">Elemental combat tower defense prototype.</p>
-                </div>
+                <h3 class="project-title">Just One More Link</h3>
+                <p class="project-desc">Arcade roguelite about connecting nodes and pushing your luck.</p>
             </div>
-            <div class="project-row">
-                <div class="project-card">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 3V13.55C11.41 13.21 10.73 13 10 13C7.79 13 6 14.79 6 17S7.79 21 10 21 14 19.21 14 17V7H18V3H12Z"/>
-                    </svg>
-                    <h3 class="project-title">Beyond Abyss</h3>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Beyond Abyss</h3>
-                    <p class="project-description">An atmospheric deep-sea exploration game with survival elements.</p>
-                </div>
+        </a>
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #f72585; border-color: rgba(247, 37, 133, 0.3);">Game</span>
+                <div class="project-icon" style="color: #f72585;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg></div>
+                <h3 class="project-title">Color Go</h3>
+                <p class="project-desc">Puzzle platformer where colors dictate gameplay mechanics.</p>
             </div>
-        </div> -->
-        
-    </div> <!-- Close project-container -->
-</div> <!-- Close content -->
-</section>
+        </div>
 
-        <!-- Existing Automation and Tools Sections (Keep Content Same) -->
-        <section id="automation" class="section">
-            <div class="content">
-                <h1>Automation</h1>
-                <div class="project-container">
-                    <div class="project-row">
-                        <div class="project-card">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 3V13.55C11.41 13.21 10.73 13 10 13C7.79 13 6 14.79 6 17S7.79 21 10 21 14 19.21 14 17V7H18V3H12Z"/>
-                            </svg>
-                            <h3 class="project-title">LVG Automation</h3>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Lyrics Video Generation Automation</h3>
-                            <p class="project-description">An automated system that generates lyric videos by synchronizing audio tracks with their corresponding lyrics, creating engaging music content efficiently.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-row from-right">
-                        <div class="project-card">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12,3V13.55C11.41,13.21 10.73,13 10,13C7.79,13 6,14.79 6,17C6,19.21 7.79,21 10,21C12.21,21 14,19.21 14,17V7H18V3H12M10,19C8.9,19 8,18.1 8,17C8,15.9 8.9,15 10,15C11.1,15 12,15.9 12,17C12,18.1 11.1,19 10,19Z"/>
-                            </svg>
-                            <h3 class="project-title">Audio-Mastering</h3>
-                        </div>
-                        <div class="project-info">
-                            <h3 class="project-title">Audio Mastering Automation</h3>
-                            <p class="project-description">An intelligent audio processing system that automates the mastering process, applying professional-grade audio enhancements and optimizations.</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #f72585; border-color: rgba(247, 37, 133, 0.3);">Game</span>
+                <div class="project-icon" style="color: #f72585;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg></div>
+                <h3 class="project-title">YOU</h3>
+                <p class="project-desc">Narrative-driven exploration game about self-discovery.</p>
             </div>
-        </section>
+        </div>
 
-        <section id="tools" class="section">
-            <div class="content">
-                <h1>Tools</h1>
-                <div class="subsection">
-                    <h2 class="subsection-title">Web Tools</h2>
-                    <div class="project-container">
-                        <div class="project-row">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z"/>
-                                </svg>
-                                <h3 class="project-title">Bulletin-Notes-Board</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">Interactive Bulletin Board</h3>
-                                <p class="project-description">A digital bulletin board for creating, organizing, and sharing notes in a collaborative environment.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="project-row from-right">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5C3,3.89 3.9,3 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z"/>
-                                </svg>
-                                <h3 class="project-title">PhoneNo. XML to PDF</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">XML to PDF Converter</h3>
-                                <p class="project-description">A tool that converts phone number data from XML format to professionally formatted PDF documents.</p>
-                            </div>
-                        </div>
-
-                        <div class="project-row">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M20,5H4A2,2 0 0,0 2,7V19A2,2 0 0,0 4,21H20A2,2 0 0,0 22,19V7A2,2 0 0,0 20,5M20,17H4V7H20V17M18,16H6V15H18V16M18,14H6V13H18V14M18,12H6V11H18V12M18,10H6V9H18V10Z"/>
-                                </svg>
-                                <h3 class="project-title">Multilanguage Typing</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">Multilanguage Typing Practice</h3>
-                                <p class="project-description">An interactive platform for practicing typing in multiple languages with real-time feedback and progress tracking.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h2 class="subsection-title">Unity Tools</h2>
-                    <div class="project-container">
-                        <div class="project-row from-right">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z"/>
-                                </svg>
-                                <h3 class="project-title">Collider Vision</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">Collider Vision</h3>
-                                <p class="project-description">A Unity Asset Store tool for visualizing and debugging colliders in game development.</p>
-                            </div>
-                        </div>
-
-                        <div class="project-row">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19,5V7H15V5H19M9,5V11H5V5H9M19,13V19H15V13H19M9,17V19H5V17H9M21,3H13V9H21V3M11,3H3V13H11V3M21,11H13V21H21V11M11,15H3V21H11V15Z"/>
-                                </svg>
-                                <h3 class="project-title">Midjourney to Unity</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">Midjourney to Unity API</h3>
-                                <p class="project-description">An API integration tool that seamlessly imports Midjourney-generated assets into Unity projects.</p>
-                            </div>
-                        </div>
-
-                        <div class="project-row from-right">
-                            <div class="project-card">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M19,5H5C3.89,5 3,5.89 3,7V17C3,18.11 3.89,19 5,19H19C20.11,19 21,18.11 21,17V7C21,5.89 20.11,5 19,5M19,17H5V7H19V17Z"/>
-                                </svg>
-                                <h3 class="project-title">FurnitureCreator</h3>
-                            </div>
-                            <div class="project-info">
-                                <h3 class="project-title">Furniture Creator Tool</h3>
-                                <p class="project-description">A prototyping tool for game designers to easily create and customize furniture assets using sprites and images.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #f72585; border-color: rgba(247, 37, 133, 0.3);">Game</span>
+                <div class="project-icon" style="color: #f72585;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 2 22 22 22" />
+                    </svg></div>
+                <h3 class="project-title">Unknown Slayer</h3>
+                <p class="project-desc">Fast-paced action RPG with dynamic combat system.</p>
             </div>
-        </section>
-    </div>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #f72585; border-color: rgba(247, 37, 133, 0.3);">Game</span>
+                <div class="project-icon" style="color: #f72585;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-9V8h4v3h3l-5 5-5-5h3z" />
+                    </svg></div>
+                <h3 class="project-title">THE SHELL</h3>
+                <p class="project-desc">Mystery adventure game set in a surreal ocean world.</p>
+            </div>
+        </div>
+
+        <!-- VR GAMES -->
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #7209b7; border-color: rgba(114, 9, 183, 0.3);">VR</span>
+                <div class="project-icon" style="color: #7209b7;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg></div>
+                <h3 class="project-title">Chronomancy</h3>
+                <p class="project-desc">Time manipulation VR puzzle adventure.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #7209b7; border-color: rgba(114, 9, 183, 0.3);">VR</span>
+                <div class="project-icon" style="color: #7209b7;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                    </svg></div>
+                <h3 class="project-title">Vicket</h3>
+                <p class="project-desc">VR Cricket simulation.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #7209b7; border-color: rgba(114, 9, 183, 0.3);">VR</span>
+                <div class="project-icon" style="color: #7209b7;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2-1-2-1-2 1 2 1z" />
+                    </svg></div>
+                <h3 class="project-title">Void Defender</h3>
+                <p class="project-desc">Save The Earth VR Game.</p>
+            </div>
+        </div>
+
+        <!-- Automation -->
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #4361ee; border-color: rgba(67, 97, 238, 0.3);">Auto</span>
+                <div class="project-icon" style="color: #4361ee;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg></div>
+                <h3 class="project-title">LVG Automation</h3>
+                <p class="project-desc">Automated lyric video generation system synchronizing audio tracks with lyrics.
+                </p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #4361ee; border-color: rgba(67, 97, 238, 0.3);">Auto</span>
+                <div class="project-icon" style="color: #4361ee;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg></div>
+                <h3 class="project-title">Audio-Mastering</h3>
+                <p class="project-desc">Intelligent audio processing system for professional-grade mastering automation.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #ffbe0b; border-color: rgba(255, 190, 11, 0.3);">Tool</span>
+                <div class="project-icon" style="color: #ffbe0b;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" />
+                    </svg></div>
+                <h3 class="project-title">Bulletin-Notes-Board</h3>
+                <p class="project-desc">Collaborative digital bulletin board for creating and organizing notes.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #ffbe0b; border-color: rgba(255, 190, 11, 0.3);">Tool</span>
+                <div class="project-icon" style="color: #ffbe0b;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                    </svg></div>
+                <h3 class="project-title">PhoneNo. XML to PDF</h3>
+                <p class="project-desc">XML to PDF converter tool for phone number data formatting.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #ffbe0b; border-color: rgba(255, 190, 11, 0.3);">Tool</span>
+                <div class="project-icon" style="color: #ffbe0b;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z" />
+                    </svg></div>
+                <h3 class="project-title">Multilanguage Typing</h3>
+                <p class="project-desc">Polyglot typing practice platform with real-time feedback.</p>
+            </div>
+        </div>
+
+        <!-- Unity Tools -->
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #000; background: #fff; border: none;">Unity</span>
+                <div class="project-icon" style="color: #fff;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 9a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5-1.73 4.39-6 7.5-11 7.5S1.73 16.39 0 12c1.73-4.39 6-7.5 11-7.5M3.18 12a8.94 8.94 0 0 0 8.82 5.5c4.14 0 7.6-2.58 8.82-5.5a8.94 8.94 0 0 0-8.82-5.5c-4.14 0-7.6 2.58-8.82 5.5z" />
+                    </svg></div>
+                <h3 class="project-title">Collider Vision</h3>
+                <p class="project-desc">Unity Asset Store tool for visualizing and debugging colliders.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #000; background: #fff; border: none;">Unity</span>
+                <div class="project-icon" style="color: #fff;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 5v2h-4V5h4M9 5v6H5V5h4m10 8v6h-4v-6h4M9 17v2H5v-2h4M21 3h-8v6h8V3M11 3H3v10h8V3m10 8h-8v10h8V11M11 15H3v6h8v-6z" />
+                    </svg></div>
+                <h3 class="project-title">Midjourney to Unity</h3>
+                <p class="project-desc">Seamless API integration for importing Midjourney assets into Unity.</p>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div>
+                <span class="section-tag" style="color: #000; background: #fff; border: none;">Unity</span>
+                <div class="project-icon" style="color: #fff;"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H5V7h14v10z" />
+                    </svg></div>
+                <h3 class="project-title">FurnitureCreator</h3>
+                <p class="project-desc">Rapid prototyping tool for creating custom furniture assets.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Simple entrance animation
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    </script>
 </body>
+
 </html>
