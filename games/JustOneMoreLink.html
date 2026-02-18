@@ -1237,7 +1237,7 @@
         <section class="hero">
             <!-- YouTube iframe: works on GitHub Pages. Locally shows placeholder. -->
             <iframe id="yt-player" class="hero-video"
-                src="https://www.youtube.com/embed/_z3U5-fPRoc?si=ONgImU8pVAVLxFyn&autoplay=1&mute=1&loop=1&playlist=_z3U5-fPRoc&controls=0&showinfo=0&modestbranding=1&enablejsapi=1&origin=https://00siddhant00.github.io"
+                src="https://www.youtube.com/embed/_z3U5-fPRoc?si=ONgImU8pVAVLxFyn&autoplay=1&mute=1&loop=1&playlist=_z3U5-fPRoc&controls=0&showinfo=0&modestbranding=1&enablejsapi=1"
                 title="Trailer" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -1867,41 +1867,48 @@
         });
     </script>
 
-    <!-- YouTube IFrame API -->
+    <!-- YouTube Control Logic (Direct postMessage fallback) -->
     <script>
-        // YouTube Player API: loaded async
-        var ytPlayer = null;
-        var heroAudioMuted = true;
-
-        function onYouTubeIframeAPIReady() {
-            ytPlayer = new YT.Player('yt-player', {
-                events: {
-                    'onReady': function (event) {
-                        console.log('YouTube Player API ready.');
-                        // Show mute button when player is ready
-                        const muteBtn = document.getElementById('hero-mute-btn');
-                        if (muteBtn) muteBtn.classList.add('visible');
-                    }
-                }
-            });
-        }
+        var heroAudioMuted = true; // Default state
 
         function toggleHeroAudio() {
-            if (!ytPlayer || typeof ytPlayer.isMuted !== 'function') return;
+            const iframe = document.getElementById('yt-player');
             const btn = document.getElementById('hero-mute-btn');
             const iconMuted = document.getElementById('icon-muted');
             const iconUnmuted = document.getElementById('icon-unmuted');
 
-            if (ytPlayer.isMuted()) {
-                ytPlayer.unMute();
-                ytPlayer.setVolume(50);
-                heroAudioMuted = false;
+            if (!iframe) return;
+
+            // Determine command based on current state
+            const action = heroAudioMuted ? 'unMute' : 'mute';
+            const volume = heroAudioMuted ? 50 : 0;
+
+            // Send direct postMessage command (works even if API fails to load)
+            iframe.contentWindow.postMessage(JSON.stringify({
+                'event': 'command',
+                'func': action,
+                'args': []
+            }), '*');
+
+            // Apply slight volume boost when unmuting
+            if (action === 'unMute') {
+                iframe.contentWindow.postMessage(JSON.stringify({
+                    'event': 'command',
+                    'func': 'setVolume',
+                    'args': [50]
+                }), '*');
+            }
+
+            // Update UI state immediately (optimistic update)
+            heroAudioMuted = !heroAudioMuted;
+
+            if (!heroAudioMuted) {
+                // Now Unmuted
                 iconMuted.style.display = 'none';
                 iconUnmuted.style.display = 'block';
                 btn.title = 'Mute';
             } else {
-                ytPlayer.mute();
-                heroAudioMuted = true;
+                // Now Muted
                 iconMuted.style.display = 'block';
                 iconUnmuted.style.display = 'none';
                 btn.title = 'Unmute';
@@ -1954,12 +1961,7 @@
                     setTimeout(showIframe, 3000);
                 }
 
-                // Load YouTube IFrame API
-                var tag = document.createElement('script');
-                tag.src = 'https://www.youtube.com/iframe_api';
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+                // We no longer need the heavy YT API script for simple mute/unmute
                 console.log('Web protocol detected: Loading YouTube iframe over fallback.');
             }
         });
