@@ -600,6 +600,48 @@
             border-color: var(--accent-red);
         }
 
+        /* Hover Name Label */
+        .g-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.85);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            white-space: nowrap;
+            border-bottom-right-radius: 4px;
+        }
+
+        .g-item:hover .g-label,
+        .s-item:hover .g-label {
+            opacity: 1;
+        }
+
+        /* Essential for positioning labels correctly on Steam items */
+        .s-item {
+            position: relative;
+            display: block;
+        }
+
+        /* Specifics for Icon Grid: Top Center & Wrap */
+        .icons-grid .g-label {
+            right: 0;
+            left: 0;
+            top: 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            white-space: normal;
+            line-height: 1.2;
+            padding: 0.2rem;
+            font-size: 0.65rem;
+            border-radius: 0;
+        }
+
         .g-item img,
         .g-item video {
             width: 100%;
@@ -1403,6 +1445,67 @@
                     <img src="JOML_Presskit_Preview/Gifs/core_gameplay_loop_compressed.webp" alt="Gameplay Loop">
                 </a>
 
+                <!-- Demo Update Screenshots -->
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/demo%20upadte/playphase_1.png" class="g-item"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Screenshorts/demo%20upadte/playphase_1.webp" loading="lazy"
+                        alt="Play Phase 1">
+                </a>
+
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/demo%20upadte/playphase_2.png" class="g-item"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Screenshorts/demo%20upadte/playphase_2.webp" loading="lazy"
+                        alt="Play Phase 2">
+                </a>
+
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/demo%20upadte/tooltip_showcase.png" class="g-item"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Screenshorts/demo%20upadte/tooltip_showcase.webp" loading="lazy"
+                        alt="Tooltip Showcase">
+                </a>
+
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/demo%20upadte/tree_zoom_out.png" class="g-item"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Screenshorts/demo%20upadte/tree_zoom_out.webp" loading="lazy"
+                        alt="Tree Zoom Out">
+                </a>
+
+                <a href="JOML_Presskit_High_Res_Download/Screenshorts/demo%20upadte/zek_invest_panel.png" class="g-item"
+                    download>
+                    <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg></div>
+                    <img src="JOML_Presskit_Preview/Screenshorts/demo%20upadte/zek_invest_panel.webp" loading="lazy"
+                        alt="Zek Invest Panel">
+                </a>
+
                 <!-- Concept Art -->
                 <a href="JOML_Presskit_High_Res_Download/Concept-art/Weaver_bots.png" class="g-item" download>
                     <div class="g-dl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff"
@@ -2022,6 +2125,53 @@
 
     <!-- Toast Container -->
     <div id="toast">Copied To Clipboard!</div>
+    <!-- Initialize Gallery Labels -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.g-item, .s-item').forEach(item => {
+                let text = '';
+                const img = item.querySelector('img');
+                const video = item.querySelector('video');
+
+                // Try to get alt text first
+                if (img && img.alt) {
+                    text = img.alt;
+                }
+
+                // Fallback to filename if alt is missing or empty
+                if (!text) {
+                    let src = '';
+                    if (img && img.src) src = img.src;
+                    else if (video && video.src) src = video.src;
+
+                    if (src) {
+                        const filename = src.split('/').pop().split('.')[0];
+
+                        // Custom Overrides
+                        if (filename === 'fast_pp') {
+                            text = 'Fast Play Phase Loop';
+                        } else if (filename === 'fast_up') {
+                            text = 'Fast Upgrade Phase Loop';
+                        } else {
+                            // Default formatting
+                            // Replace percent-encoding, underscores, dashes with spaces
+                            text = decodeURIComponent(filename).replace(/[_-]/g, ' ');
+                            // Capitalize each word
+                            text = text.replace(/\b\w/g, c => c.toUpperCase());
+                        }
+                    }
+                }
+
+                // Append label if text found
+                if (text) {
+                    const label = document.createElement('div');
+                    label.className = 'g-label';
+                    label.textContent = text;
+                    item.appendChild(label);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
