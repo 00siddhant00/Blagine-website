@@ -35,7 +35,7 @@
             font-family: var(--font-main);
             overflow-x: hidden;
             min-height: 100vh;
-            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/cursor.webp') 0 0, auto;
+            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/cursor.png') 0 0, auto;
         }
 
         /* Custom Hand Cursor for interactables */
@@ -44,7 +44,7 @@
         input,
         .g-item,
         .s-item {
-            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/hand_cursor.webp') 0 0, pointer;
+            cursor: url('JOML_Presskit_Preview/In_Game_Art/Generic/hand_cursor.png') 0 0, pointer;
         }
 
         /* Ensure hovered items appear above others */
@@ -163,6 +163,52 @@
             opacity: 1;
         }
 
+        /* ─── HERO MUTE BUTTON (Glassmorphic) ─── */
+        .hero-mute-btn {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hero-mute-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hero-mute-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(192, 57, 43, 0.3);
+        }
+
+        .hero-mute-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s;
+        }
+
+        .hero-mute-btn:active svg {
+            transform: scale(0.85);
+        }
 
 
         /* Extra gradient overlay for readability */
@@ -910,9 +956,17 @@
         }
 
         /* ─── RESPONSIVE ─── */
+
+        /* ── TABLET (≤ 900px) ── */
         @media (max-width: 900px) {
             .hero-title {
                 font-size: 2.5rem;
+                left: 0;
+                padding: 0 1.5rem;
+            }
+
+            .hero-subtitle {
+                right: 1.5rem;
             }
 
             .main-wrap {
@@ -922,19 +976,94 @@
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
 
-        @media (max-width: 600px) {
-            .hero {
-                height: 60vh;
+            .store-layout {
+                column-count: 2;
             }
 
+            .desc-panel {
+                padding: 1.5rem;
+            }
+
+            .info-bar {
+                padding: 0 1rem;
+            }
+
+            .gallery-wrap {
+                padding: 0 1rem;
+            }
+
+            .main-wrap {
+                padding: 0 1rem;
+            }
+        }
+
+        /* ── PHONE (≤ 600px) ── */
+        @media (max-width: 600px) {
+            .hero {
+                height: 50vh;
+            }
+
+            /* Center hero title with icon visible */
             .hero-title {
-                font-size: 2rem;
+                position: absolute;
+                top: auto;
+                bottom: 4.5rem;
+                left: 0;
+                right: 0;
+                width: 100%;
+                font-size: 1.5rem;
+                justify-content: center;
+                text-align: center;
+                padding: 0 1rem;
+                gap: 0.5rem;
+            }
+
+            .hero-title img {
+                height: 0.85em !important;
+            }
+
+            /* Center subtitle */
+            .hero-subtitle {
+                top: auto;
+                bottom: 3rem;
+                right: 0;
+                left: 0;
+                text-align: center;
+                font-size: 0.7rem;
+            }
+
+            /* Center download button on mobile */
+            .download-all {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.85rem;
+                padding: 0.8rem 1.8rem;
+                gap: 0.5rem;
+            }
+
+            .download-all:hover {
+                transform: translateX(-50%) translateY(-3px) scale(1.02);
+                padding-right: 1.8rem;
+            }
+
+            /* Sticky button adjustments for mobile */
+            .download-all.sticky {
+                right: 1rem;
+                left: auto;
+                top: 1rem;
+                transform: none;
+                font-size: 0.8rem;
+                padding: 0.6rem 1.2rem;
             }
 
             .gallery-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .store-layout {
+                column-count: 1;
             }
 
             .info-strip {
@@ -944,12 +1073,91 @@
             .info-cell {
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
+                padding: 0.75rem 1rem;
+            }
+
+            .desc-panel {
+                padding: 1.2rem;
+            }
+
+            .feat-list li {
+                font-size: 0.9rem;
+            }
+
+            /* Sidebar tighter */
+            .sidebar-card img {
+                border-radius: 4px;
+            }
+
+            .steam-btn {
+                font-size: 0.85rem;
+                padding: 0.7rem;
+            }
+
+            .contact-btn {
+                font-size: 0.8rem;
+                padding: 0.75rem;
             }
 
             .credits {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+                padding: 1.5rem 1rem;
+            }
+
+            /* Back button smaller */
+            .back-btn {
+                top: 0.75rem;
+                left: 0.75rem;
+                width: 36px;
+                height: 36px;
+            }
+
+            /* Download icons button */
+            .download-icons-btn {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ── SMALL PHONE (≤ 400px) ── */
+        @media (max-width: 400px) {
+            .hero {
+                height: 40vh;
+            }
+
+            .hero-title {
+                font-size: 1.2rem;
+                bottom: 4rem;
+                gap: 0.4rem;
+            }
+
+            .hero-subtitle {
+                bottom: 2.5rem;
+                font-size: 0.6rem;
+            }
+
+            .download-all {
+                font-size: 0.75rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .info-cell .value,
+            .info-cell a {
+                font-size: 0.8rem;
+            }
+
+            .desc-panel {
+                padding: 1rem;
+            }
+
+            .panel-title {
+                font-size: 0.7rem;
+            }
+
+            .pitch {
+                font-size: 1.1rem;
             }
         }
 
@@ -1023,8 +1231,8 @@
         <!-- ═══════════ HERO ═══════════ -->
         <section class="hero">
             <!-- YouTube iframe: works on GitHub Pages. Locally shows placeholder. -->
-            <iframe class="hero-video"
-                src="https://www.youtube.com/embed/_z3U5-fPRoc?si=ONgImU8pVAVLxFyn&autoplay=1&mute=1&loop=1&playlist=_z3U5-fPRoc&controls=0&showinfo=0&modestbranding=1"
+            <iframe id="yt-player" class="hero-video"
+                src="https://www.youtube.com/embed/_z3U5-fPRoc?si=ONgImU8pVAVLxFyn&autoplay=1&mute=1&loop=1&playlist=_z3U5-fPRoc&controls=0&showinfo=0&modestbranding=1&enablejsapi=1&origin=https://00siddhant00.github.io"
                 title="Trailer" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -1032,6 +1240,23 @@
             <video class="hero-video hero-video-fallback" src="JOML_Presskit_Preview/Gifs/fast_pp.mp4" autoplay loop
                 muted playsinline></video>
             <div class="hero-overlay"></div>
+            <!-- Audio Toggle Button -->
+            <button id="hero-mute-btn" class="hero-mute-btn" title="Unmute" onclick="toggleHeroAudio()">
+                <!-- Muted icon (default) -->
+                <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <!-- Unmuted icon (hidden by default) -->
+                <svg id="icon-unmuted" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+            </button>
             <h1 class="hero-title">
                 <img src="JOML_Presskit_Preview/Shortcut Icon.webp" alt="Icon" style="height: 1em; width: auto;">
                 Just One More Link
@@ -1637,6 +1862,48 @@
         });
     </script>
 
+    <!-- YouTube IFrame API -->
+    <script>
+        // YouTube Player API: loaded async
+        var ytPlayer = null;
+        var heroAudioMuted = true;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-player', {
+                events: {
+                    'onReady': function (event) {
+                        console.log('YouTube Player API ready.');
+                        // Show mute button when player is ready
+                        const muteBtn = document.getElementById('hero-mute-btn');
+                        if (muteBtn) muteBtn.classList.add('visible');
+                    }
+                }
+            });
+        }
+
+        function toggleHeroAudio() {
+            if (!ytPlayer || typeof ytPlayer.isMuted !== 'function') return;
+            const btn = document.getElementById('hero-mute-btn');
+            const iconMuted = document.getElementById('icon-muted');
+            const iconUnmuted = document.getElementById('icon-unmuted');
+
+            if (ytPlayer.isMuted()) {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(50);
+                heroAudioMuted = false;
+                iconMuted.style.display = 'none';
+                iconUnmuted.style.display = 'block';
+                btn.title = 'Mute';
+            } else {
+                ytPlayer.mute();
+                heroAudioMuted = true;
+                iconMuted.style.display = 'block';
+                iconUnmuted.style.display = 'none';
+                btn.title = 'Unmute';
+            }
+        }
+    </script>
+
     <!-- Switches between YouTube iframe (Web) and Local Video (File Protocol) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1655,12 +1922,14 @@
             }
 
             if (window.location.protocol === 'file:') {
-                // Local: Hide iframe, show local video
+                // Local: Hide iframe, show local video, hide mute button
                 if (iframe) iframe.style.display = 'none';
                 if (localVideo) {
                     localVideo.style.display = 'block';
                     localVideo.style.opacity = '1';
                 }
+                const muteBtn = document.getElementById('hero-mute-btn');
+                if (muteBtn) muteBtn.style.display = 'none';
                 console.log('Local file detected: Using local video fallback.');
             } else {
                 // Web: Show local video initially, load iframe in background
@@ -1679,6 +1948,13 @@
                     // Fallback timeout in case onload doesn't fire reliably
                     setTimeout(showIframe, 3000);
                 }
+
+                // Load YouTube IFrame API
+                var tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
                 console.log('Web protocol detected: Loading YouTube iframe over fallback.');
             }
         });
