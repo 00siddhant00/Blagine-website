@@ -139,6 +139,9 @@
             object-fit: cover;
             display: block;
             border: none;
+            /* Scroll fix: Allow events to pass through */
+            pointer-events: none;
+            z-index: 1;
             /* Seamless fade at each border independently */
             -webkit-mask-image:
                 linear-gradient(to right, transparent, #000 15%, #000 85%, transparent),
@@ -150,15 +153,17 @@
             mask-composite: intersect;
         }
 
-        /* iframe sits on top, opaque black bg to hide fallback video */
         iframe.hero-video {
-            z-index: 1;
-            background: #000;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
 
-        .hero-video-fallback {
-            z-index: 0;
+        iframe.hero-video.loaded {
+            opacity: 1;
         }
+
+
 
         /* Extra gradient overlay for readability */
         .hero-overlay {
@@ -1023,8 +1028,8 @@
                 title="Trailer" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <!-- Fallback local video for local testing -->
-            <video class="hero-video hero-video-fallback" src="JOML_Presskit_Preview/Gifs/fast_up.mp4" autoplay loop
+            <!-- Fallback local video for local testing/loading state -->
+            <video class="hero-video hero-video-fallback" src="JOML_Presskit_Preview/Gifs/fast_pp.mp4" autoplay loop
                 muted playsinline></video>
             <div class="hero-overlay"></div>
             <h1 class="hero-title">
@@ -1638,20 +1643,43 @@
             const iframe = document.querySelector('iframe.hero-video');
             const localVideo = document.querySelector('.hero-video-fallback');
 
+            // Helper to fade in iframe
+            function showIframe() {
+                if (iframe) {
+                    iframe.classList.add('loaded');
+                    // Optional: hide local video after transition to save resources
+                    setTimeout(() => {
+                        if (localVideo) localVideo.style.display = 'none';
+                    }, 2000);
+                }
+            }
+
             if (window.location.protocol === 'file:') {
-                // We are local: Local video wins
+                // Local: Hide iframe, show local video
                 if (iframe) iframe.style.display = 'none';
-                if (localVideo) localVideo.style.display = 'block';
+                if (localVideo) {
+                    localVideo.style.display = 'block';
+                    localVideo.style.opacity = '1';
+                }
                 console.log('Local file detected: Using local video fallback.');
             } else {
-                // We are on web (GitHub etc): YouTube iframe wins
+                // Web: Show local video initially, load iframe in background
                 if (localVideo) {
-                    localVideo.pause();
-                    localVideo.style.display = 'none';
-                    localVideo.remove(); // Remove entirely to save resources
+                    localVideo.style.display = 'block';
+                    localVideo.style.opacity = '1';
                 }
-                if (iframe) iframe.style.display = 'block';
-                console.log('Web protocol detected: Using YouTube iframe.');
+
+                if (iframe) {
+                    iframe.style.display = 'block';
+                    // When iframe loads, fade it in
+                    iframe.onload = () => {
+                        console.log('YouTube iframe loaded, fading in...');
+                        showIframe();
+                    };
+                    // Fallback timeout in case onload doesn't fire reliably
+                    setTimeout(showIframe, 3000);
+                }
+                console.log('Web protocol detected: Loading YouTube iframe over fallback.');
             }
         });
     </script>
